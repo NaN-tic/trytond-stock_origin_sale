@@ -1,22 +1,15 @@
 #This file is part stock_origin_sale module for Tryton.
 #The COPYRIGHT file at the top level of this repository contains 
 #the full copyright notices and license terms.
+from trytond.pool import Pool, PoolMeta
 
-from trytond.model import ModelView, ModelSQL, fields
-from trytond.transaction import Transaction
-from trytond.pool import Pool
+__all__ = ['ShipmentOut']
+__metaclass__ = PoolMeta
 
-class ShipmentOut(ModelSQL, ModelView):
-    _name = 'stock.shipment.out'
+class ShipmentOut:
+    "Customer Shipment"
+    __name__ = 'stock.shipment.out'
 
-    def origin_get(self):
-        res = super(ShipmentOut, self).origin_get()
-        model_obj = Pool().get('ir.model')
-        model_ids = model_obj.search([
-            ('model', '=', 'sale.sale'),
-            ])
-        for model in model_obj.browse(model_ids):
-            res.append([model.model, model.name])
-        return res
-
-ShipmentOut()
+    @classmethod
+    def _get_origin(cls):
+        return super(ShipmentOut, cls)._get_origin() + ['sale.sale']
