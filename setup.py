@@ -27,20 +27,20 @@ for dep in info.get('depends', []):
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytond_stock_origin_sale',
+setup(name='trytonzz_stock_origin_sale',
     version=info.get('version', '0.0.1'),
     description='Tryton module for sale stock origin',
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytond-stock_origin_sale",
-    package_dir={'trytond.modules.stock_origin_sale': '.'},
+    download_url="https://bitbucket.org/zikzakmedia/trytonzz-stock_origin_sale",
+    package_dir={'trytonzz.modules.stock_origin_sale': '.'},
     packages=[
-        'trytond.modules.stock_origin_sale',
-        'trytond.modules.stock_origin_sale.tests',
+        'trytonzz.modules.stock_origin_sale',
+        'trytonzz.modules.stock_origin_sale.tests',
     ],
     package_data={
-        'trytond.modules.stock_origin_sale': info.get('xml', []) \
+        'trytonzz.modules.stock_origin_sale': info.get('xml', []) \
             + ['tryton.cfg'],
     },
     classifiers=[
@@ -63,9 +63,9 @@ setup(name='trytond_stock_origin_sale',
     install_requires=requires,
     zip_safe=False,
     entry_points="""
-    [trytond.modules]
-    stock_origin_sale = trytond.modules.stock_origin_sale
+    [trytonzz.modules]
+    stock_origin_sale = trytonzz.modules.stock_origin_sale
     """,
     test_suite='tests',
-    test_loader='trytond.test_loader:Loader',
+    test_loader='trytonzz.test_loader:Loader',
 )
