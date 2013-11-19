@@ -8,7 +8,6 @@ __metaclass__ = PoolMeta
 
 
 class ShipmentOut:
-    "Customer Shipment"
     __name__ = 'stock.shipment.out'
 
     @classmethod
