@@ -8,6 +8,5 @@ from .sale import *
 
 def register():
     Pool.register(
-        Sale,
         ShipmentOut,
         module='stock_origin_sale', type_='model')
