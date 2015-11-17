@@ -1,4 +1,4 @@
 Stock Origin Sale Module
-############################
+########################
 
-The stock_origin_sale module add sale origin in shipment.
+The stock origin sale module add sale reference in shipment model.
