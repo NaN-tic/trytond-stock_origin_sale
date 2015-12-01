@@ -1,21 +1,14 @@
-#!/usr/bin/env python
-# This file is part stock_origin_sale_sale module for Tryton.
-# The COPYRIGHT file at the top level of this repository contains
-# the full copyright notices and license terms.
+# This file is part of the stock_origin_sale module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 import unittest
 import trytond.tests.test_tryton
-from trytond.tests.test_tryton import test_depends
+from trytond.tests.test_tryton import ModuleTestCase
 
 
-class StockOriginSaleTestCase(unittest.TestCase):
+class StockOriginSaleTestCase(ModuleTestCase):
     'Test Stock Origin Sale module'
-
-    def setUp(self):
-        trytond.tests.test_tryton.install_module('stock_origin_sale')
-
-    def test0006depends(self):
-        'Test depends'
-        test_depends()
+    module = 'stock_origin_sale'
 
 
 def suite():
