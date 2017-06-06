@@ -1,6 +1,7 @@
 #This file is part stock_origin_sale module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains 
+#The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
+from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 
 __all__ = ['ShipmentOut', 'ShipmentOutReturn']
@@ -9,6 +10,8 @@ __all__ = ['ShipmentOut', 'ShipmentOutReturn']
 class ShipmentOut:
     __metaclass__ = PoolMeta
     __name__ = 'stock.shipment.out'
+    origin_reference = fields.Function(fields.Char('Origin Reference'),
+        'get_origin_reference', searcher='search_origin_reference_field')
 
     @classmethod
     def get_origin_value(cls, shipments, name):
@@ -25,10 +28,22 @@ class ShipmentOut:
     def _get_origin(cls):
         return super(ShipmentOut, cls)._get_origin() + ['sale.sale']
 
+    def get_origin_reference(self, name):
+        origin = self.origin_cache if self.origin_cache else self.origin
+        if hasattr(origin, 'reference'):
+            return origin.reference
+
+    @classmethod
+    def search_origin_reference_field(cls, name, clause):
+        # TODO
+        return []
+
 
 class ShipmentOutReturn:
     __metaclass__ = PoolMeta
     __name__ = 'stock.shipment.out.return'
+    origin_reference = fields.Function(fields.Char('Origin Reference'),
+        'get_origin_reference', searcher='search_origin_reference_field')
 
     @classmethod
     def get_origin_value(cls, shipments, name):
@@ -44,3 +59,13 @@ class ShipmentOutReturn:
     @classmethod
     def _get_origin(cls):
         return super(ShipmentOutReturn, cls)._get_origin() + ['sale.sale']
+
+    def get_origin_reference(self, name):
+        origin = self.origin_cache if self.origin_cache else self.origin
+        if hasattr(origin, 'reference'):
+            return origin.reference
+
+    @classmethod
+    def search_origin_reference_field(cls, name, clause):
+        # TODO
+        return []
