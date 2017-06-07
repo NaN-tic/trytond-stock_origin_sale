@@ -13,8 +13,13 @@ class ShipmentOut:
     @classmethod
     def get_origin_value(cls, shipments, name):
         SaleLine = Pool().get('sale.line')
+
         origin = super(ShipmentOut, cls).get_origin_value(shipments, name)
         for shipment in shipments:
+            if shipment.origin_cache:
+                origin[shipment.id] = '%s' % shipment.origin_cache
+                continue
+
             for m in shipment.outgoing_moves:
                 if m.origin and isinstance(m.origin, SaleLine):
                     origin[shipment.id] = 'sale.sale,%s' % (m.origin.sale.id)
@@ -25,6 +30,14 @@ class ShipmentOut:
     def _get_origin(cls):
         return super(ShipmentOut, cls)._get_origin() + ['sale.sale']
 
+    @classmethod
+    def _get_searcher_number(cls):
+        return super(ShipmentOut, cls)._get_searcher_number() + ['sale.sale']
+
+    @classmethod
+    def _get_searcher_reference(cls):
+        return super(ShipmentOut, cls)._get_searcher_reference() + ['sale.sale']
+
 
 class ShipmentOutReturn:
     __metaclass__ = PoolMeta
@@ -33,8 +46,13 @@ class ShipmentOutReturn:
     @classmethod
     def get_origin_value(cls, shipments, name):
         SaleLine = Pool().get('sale.line')
+
         origin = super(ShipmentOutReturn, cls).get_origin_value(shipments, name)
         for shipment in shipments:
+            if shipment.origin_cache:
+                origin[shipment.id] = '%s' % shipment.origin_cache
+                continue
+
             for m in shipment.incoming_moves:
                 if m.origin and isinstance(m.origin, SaleLine):
                     origin[shipment.id] = 'sale.sale,%s' % (m.origin.sale.id)
@@ -44,3 +62,11 @@ class ShipmentOutReturn:
     @classmethod
     def _get_origin(cls):
         return super(ShipmentOutReturn, cls)._get_origin() + ['sale.sale']
+
+    @classmethod
+    def _get_searcher_number(cls):
+        return super(ShipmentOutReturn, cls)._get_searcher_number() + ['sale.sale']
+
+    @classmethod
+    def _get_searcher_reference(cls):
+        return super(ShipmentOutReturn, cls)._get_searcher_reference() + ['sale.sale']
