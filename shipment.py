@@ -25,16 +25,6 @@ class ShipmentOut:
     def _get_origin(cls):
         return super(ShipmentOut, cls)._get_origin() + ['sale.sale']
 
-    def get_origin_reference(self, name):
-        origin = self.origin_cache if self.origin_cache else self.origin
-        if hasattr(origin, 'reference'):
-            return origin.reference
-
-    @classmethod
-    def search_origin_reference_field(cls, name, clause):
-        # TODO
-        return []
-
 
 class ShipmentOutReturn:
     __metaclass__ = PoolMeta
