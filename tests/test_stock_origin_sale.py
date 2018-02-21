@@ -9,6 +9,7 @@ from trytond.pool import Pool
 from trytond.modules.company.tests import create_company, set_company
 from trytond.modules.account.tests import create_chart
 
+
 def create_payment_term():
     PaymentTerm = Pool().get('account.invoice.payment_term')
 
@@ -24,6 +25,7 @@ def create_payment_term():
                                 }])]
                 }])
     return term
+
 
 class StockOriginSaleTestCase(ModuleTestCase):
     'Test Stock Origin Sale module'
@@ -46,8 +48,12 @@ class StockOriginSaleTestCase(ModuleTestCase):
         with set_company(company):
             create_chart(company, tax=True)
             create_payment_term()
-            account_expense, = Account.search([('kind', '=', 'expense')], limit=1)
-            account_revenue, = Account.search([('kind', '=', 'revenue')], limit=1)
+            account_expense, = Account.search([
+                    ('kind', '=', 'expense'),
+                    ], limit=1)
+            account_revenue, = Account.search([
+                    ('kind', '=', 'revenue'),
+                    ], limit=1)
 
             # party
             party1 = Party()
