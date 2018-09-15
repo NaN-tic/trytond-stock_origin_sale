@@ -39,6 +39,7 @@ class StockOriginSaleTestCase(ModuleTestCase):
         Party = pool.get('party.party')
         Uom = pool.get('product.uom')
         Template = pool.get('product.template')
+        Category = pool.get('product.category')
         Sale = pool.get('sale.sale')
         SaleLine = pool.get('sale.line')
         ShipmentOut = pool.get('stock.shipment.out')
@@ -63,6 +64,14 @@ class StockOriginSaleTestCase(ModuleTestCase):
                     setattr(party1, key, value)
             party1.save()
 
+            # category
+            account_category = Category()
+            account_category.name = 'Account Category'
+            account_category.accounting = True
+            account_category.account_expense = account_expense
+            account_category.account_revenue = account_revenue
+            account_category.save()
+
             # product
             unit, = Uom.search([('name', '=', 'Unit')])
             template1 = Template()
@@ -77,8 +86,7 @@ class StockOriginSaleTestCase(ModuleTestCase):
             template1.salable = True
             template1.purchasable = True
             template1.on_change_default_uom()
-            template1.account_expense = account_expense
-            template1.account_revenue = account_revenue
+            template1.account_category = account_category
             template1.save()
             product1, = template1.products
 
