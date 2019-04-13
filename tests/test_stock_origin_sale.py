@@ -50,10 +50,10 @@ class StockOriginSaleTestCase(ModuleTestCase):
             create_chart(company, tax=True)
             create_payment_term()
             account_expense, = Account.search([
-                    ('kind', '=', 'expense'),
+                    ('type.expense', '=', True),
                     ], limit=1)
             account_revenue, = Account.search([
-                    ('kind', '=', 'revenue'),
+                    ('type.revenue', '=', True),
                     ], limit=1)
 
             # party
