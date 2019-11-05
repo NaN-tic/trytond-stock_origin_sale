@@ -84,7 +84,6 @@ class StockOriginSaleTestCase(ModuleTestCase):
             template1.cost_price = Decimal(10)
             template1.default_uom = unit
             template1.salable = True
-            template1.purchasable = True
             template1.on_change_default_uom()
             template1.account_category = account_category
             template1.save()
