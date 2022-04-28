@@ -1,12 +1,12 @@
-# This file is part of the stock_origin_sale module for Tryton.
-# The COPYRIGHT file at the top level of this repository contains the full
-# copyright notices and license terms.
-import unittest
-import trytond.tests.test_tryton
+
+# This file is part of Tryton.  The COPYRIGHT file at the top level of
+# this repository contains the full copyright notices and license terms.
+
 from decimal import Decimal
 from trytond.tests.test_tryton import ModuleTestCase, with_transaction
 from trytond.pool import Pool
-from trytond.modules.company.tests import create_company, set_company
+from trytond.modules.company.tests import (CompanyTestMixin, create_company,
+    set_company)
 from trytond.modules.account.tests import create_chart
 
 
@@ -27,8 +27,8 @@ def create_payment_term():
     return term
 
 
-class StockOriginSaleTestCase(ModuleTestCase):
-    'Test Stock Origin Sale module'
+class StockOriginSaleTestCase(CompanyTestMixin, ModuleTestCase):
+    'Test StockOriginSale module'
     module = 'stock_origin_sale'
 
     @with_transaction()
@@ -136,8 +136,4 @@ class StockOriginSaleTestCase(ModuleTestCase):
             self.assertEqual(shipment_out_return.origin_number, '1')
 
 
-def suite():
-    suite = trytond.tests.test_tryton.suite()
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
-        StockOriginSaleTestCase))
-    return suite
+del ModuleTestCase
