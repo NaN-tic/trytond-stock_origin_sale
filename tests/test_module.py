@@ -51,9 +51,11 @@ class StockOriginSaleTestCase(CompanyTestMixin, ModuleTestCase):
             create_payment_term()
             account_expense, = Account.search([
                     ('type.expense', '=', True),
+                    ('closed', '=', False),
                     ], limit=1)
             account_revenue, = Account.search([
                     ('type.revenue', '=', True),
+                    ('closed', '=', False),
                     ], limit=1)
 
             # party
